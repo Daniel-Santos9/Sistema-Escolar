@@ -65,7 +65,7 @@
 
                                         <tr >
                                             <td class="text-center">{{$turma->serie}}</td>
-                                            <td class="text-center">{{$turma->ano}}</td>
+                                            <td class="text-center">{{date_format(new DateTime($turma->ano), "d/m/Y")}}</td>
                                             <td class="text-center">
                                                 <a class='btn btn-info btn-xs' href="{{route('turma.edit', $turma->id) }}">
                                                     <span class="glyphicon glyphicon-edit"></span> Editar

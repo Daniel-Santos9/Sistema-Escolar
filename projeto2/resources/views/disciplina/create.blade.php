@@ -26,9 +26,8 @@
                             </div>
 
                             <div class="form-group col-md-10{{ $errors->has('ch') ? ' has-error' : '' }}">
-                                <label for="ch" class="control-label"> Valor: </label>
-                                <div class="input-group ">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                <label for="ch" class="control-label"> Carga Horaria: </label>
+                                <div class="input-group">
                                     <input id="ch" type="text" class="form-control" name="ch" value="{{ old('ch') }}">
                                 </div>
                                 @if ($errors->has('ch'))
