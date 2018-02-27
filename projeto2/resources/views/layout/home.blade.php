@@ -44,12 +44,14 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href={{route('usuario.create')}}>Usuário</a></li>
                                 <li><a href={{route('turma.create')}}>Turma</a></li>
+                                <li><a href={{route('disciplina.create')}}>Disciplina</a></li>
                             </ul>
                         </li>
                         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Controle <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href={{route('usuario.show')}}>Usuário</a></li>
                                 <li><a href={{route('turma.show')}}>Turma</a></li>
+                                <li><a href={{route('disciplina.show')}}>Disciplina</a></li>
                             </ul>
                         </li>
 

@@ -37,9 +37,9 @@ class TurmaController extends Controller
                 ->withInput();
         }else
         {
-            $this->user->name = $res->input('name');
-            $this->user->email = $res->input('email');
-            $this->user->password = bcrypt($res->input['password']);
+            $this->turma->serie = $res->input('email');
+            $this->turma->turno = $res->input('email');
+            $this->turma->ano =$res->input('email');
 
             $user_ins = $this->user->save();
 
@@ -112,6 +112,4 @@ class TurmaController extends Controller
             ->with('delete',true);
 
     }
-
-
 }

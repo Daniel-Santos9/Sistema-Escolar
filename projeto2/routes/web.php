@@ -16,6 +16,9 @@ Route::group(['prefix'=>'admin'],function(){
 
         Route::get('turma', 'TurmaController@create')->name('turma.create');
         Route::post('turma', 'TurmaController@store')->name('turma.store');
+
+         Route::get('disciplina', 'DisciplinaController@create')->name('disciplina.create');
+        Route::post('disciplina', 'DisciplinaController@store')->name('disciplina.store');
     });
 
     // Rotas de controle
@@ -25,6 +28,7 @@ Route::group(['prefix'=>'admin'],function(){
 
         Route::get('turma', 'TurmaController@show')->name('turma.show');
 
+         Route::get('disciplina', 'DisciplinaController@show')->name('disciplina.show');
     });
 
     // Rotas de Edição
@@ -35,6 +39,9 @@ Route::group(['prefix'=>'admin'],function(){
 
         Route::get('turma/{id}','TurmaController@edit')->name('turma.edit');
         Route::put('turma/{id}', 'TurmaController@update')->name('turma.update');
+
+        Route::get('disciplina/{id}','DisciplinaController@edit')->name('disciplina.edit');
+        Route::put('disciplina/{id}', 'DisciplinaController@update')->name('disciplina.update');
     });
 
     //Rotas para deletar
@@ -44,6 +51,8 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('usuario/{id}', 'UsuarioController@delete')->name('usuario.delete');
 
         Route::get('turma/{id}', 'TurmaController@delete')->name('turma.delete');
+
+        Route::get('disciplina/{id}', 'DisciplinaController@delete')->name('disciplina.delete');
     });
 
 });
