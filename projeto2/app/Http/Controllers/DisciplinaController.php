@@ -56,7 +56,8 @@ class DisciplinaController extends Controller
 
         $str = $request->get('consulta','');
         if($str){
-          $disciplinas = $this->disciplina->where('nome','=',$str)->get();
+
+          $disciplinas = $this->disciplina->where('nome','LIKE','%'.$str.'%')->get();
         }
         else{
             $disciplinas = $this->disciplina->all();

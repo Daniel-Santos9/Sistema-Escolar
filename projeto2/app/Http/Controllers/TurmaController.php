@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Models\Turma;
 use App\Http\Models\Disciplina;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use DateTime;
 
 class TurmaController extends Controller
 {
@@ -25,9 +27,10 @@ class TurmaController extends Controller
     public function store(Request $res){
 
         $validador = Validator::make($res->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'serie' => 'required|string|min:10',
+            'status' => 'required|string|min:1',
+            'turno' => 'required|string|min:1',
+            'ano'=> 'required|date',
         ]);
 
         if($validador->fails())
@@ -37,13 +40,15 @@ class TurmaController extends Controller
                 ->withInput();
         }else
         {
-            $this->turma->serie = $res->input('email');
-            $this->turma->turno = $res->input('email');
-            $this->turma->ano =$res->input('email');
+            $dataUSA = date_format(new DateTime($res->input('ano')), "Y-m-d");
+            $this->turma->serie = $res->input('serie');
+            $this->turma->turno = $res->input('turno');
+            $this->turma->status = $res->input('status');
+            $this->turma->ano = $dataUSA;
 
-            $user_ins = $this->user->save();
+            $turma_ins = $this->turma->save();
 
-            if($user_ins)
+            if($turma_ins)
             {
                 return redirect()->route('turma.show')
                     ->withInput()
@@ -56,7 +61,7 @@ class TurmaController extends Controller
 
         $str = $request->get('consulta','');
         if($str){
-            $turmas = $this->turma->where('serie','=',$str)->get();
+            $turmas = $this->turma->where('serie','LIKE','%'.$str.'%')->get();
         }
         else{
             $turmas = $this->turma->all();
@@ -70,15 +75,15 @@ class TurmaController extends Controller
         return view('turma.edit', compact('turma'));
     }
 
-    public function update(Request $req, $id){
+    public function update(Request $res, $id){
 
         $turma = $this->turma->find($id);
 
-        $validador = Validator::make($req->all(), [
-            'serie' => 'required|numeric|min:1',
-            'ano' => 'required|string',
-            'turno' => 'required|numeric|min:1',
-            'status'=> 'required|string',
+        $validador = Validator::make($res->all(), [
+            'serie' => 'required|string|min:10',
+            'status' => 'required|string|min:1',
+            'turno' => 'required|string|min:1',
+            'ano'=> 'required|date',
         ]);
 
 
@@ -89,10 +94,11 @@ class TurmaController extends Controller
                 ->withInput();
         }else
         {
-            $turma->serie = $req->input('serie');
-            $turma->ano = $req->input('ano');
-            $turma->turno = $req->input('turno');
-            $turma->turno = $req->input('status');
+            $dataUSA = new DateTime($res->input('ano'));
+            $turma->serie = $res->input('serie');
+            $turma->turno = $res->input('turno');
+            $turma->status = $res->input('status');
+            $turma->ano = $dataUSA->format("Y-m-d");
 
             $turma->save();
 

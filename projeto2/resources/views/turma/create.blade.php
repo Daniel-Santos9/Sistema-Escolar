@@ -5,59 +5,91 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Cadastrar Usuário</div>
+
+                    <div class="panel-heading">Cadastrar Turma</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('turma.store') }}">
                             {{ csrf_field() }}
-
-                            <div class="form-group">
-                                <label for="nome" class="col-md-4 control-label">Turma: </label>
-
+                           <div class="form-group {{ $errors->has('serie') ? ' has-error' : '' }}">
+                                <label for="serie" class="col-md-4 control-label" >Série:</label>
                                 <div class="col-md-6">
-                                    <select name="serie">
-                                        <option option="9">9º ano</option>
-                                        <option option="8">8º ano</option>
-                                        <option option="7">7º ano</option>
-                                        <option option="6">6º ano</option>
-                                        <option option="5">5º ano</option>
-                                        <option option="4">4º ano</option>
-                                        <option option="3">3º ano</option>
-                                        <option option="2">2º ano</option>
-                                        <option option="1">1º ano</option>
+                                    <select class="form-control" data-live-search="true" id="serie" name="serie">
+                                        <option data-tokens="ketchup mustard" value="">SELECIONE...</option>
+                                        <option data-tokens="ketchup mustard" value="1° ANO - ENSINO FUNDAMENTAL I"> 1° ANO - ENSINO FUNDAMENTAL I</option>
+                                        <option data-tokens="ketchup mustard" value="2° ANO - ENSINO FUNDAMENTAL I"> 2° ANO - ENSINO FUNDAMENTAL I</option>
+                                        <option data-tokens="ketchup mustard" value="3° ANO - ENSINO FUNDAMENTAL I"> 3° ANO - ENSINO FUNDAMENTAL I</option>
+                                        <option data-tokens="ketchup mustard" value="4° ANO - ENSINO FUNDAMENTAL I"> 4° ANO - ENSINO FUNDAMENTAL I</option>
+                                        <option data-tokens="ketchup mustard" value="5° ANO - ENSINO FUNDAMENTAL I"> 5° ANO - ENSINO FUNDAMENTAL I</option>
+                                        <option data-tokens="ketchup mustard" value="6° ANO - ENSINO FUNDAMENTAL II"> 6° ANO - ENSINO FUNDAMENTAL II</option>
+                                        <option data-tokens="ketchup mustard" value="7° ANO - ENSINO FUNDAMENTAL II"> 7° ANO - ENSINO FUNDAMENTAL II</option>
+                                        <option data-tokens="ketchup mustard" value="8° ANO - ENSINO FUNDAMENTAL II"> 8° ANO - ENSINO FUNDAMENTAL II</option>
+                                        <option data-tokens="ketchup mustard" value="9° ANO - ENSINO FUNDAMENTAL II"> 9° ANO - ENSINO FUNDAMENTAL II</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="nome" class="col-md-4 control-label">Status: </label>
 
-                                <div class="col-md-6">
-                                    <select name="Status">
-                                        <option>A</option>
-                                        <option>B</option>
-                                        <option>C</option>
+                                @if ($errors->has('serie'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('serie') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+
+                           <div class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
+                                <label for="status" class="col-md-4 control-label" >Turma:</label>
+                                <div class="col-md-6"> 
+                                    <select class="form-control" data-live-search="true" id="status" name="status">
+                                        <option data-tokens="ketchup mustard" value="">SELECIONE...</option>
+                                        <option data-tokens="ketchup mustard" value="A"> A </option>
+                                        <option data-tokens="ketchup mustard" value="B"> B </option>
+                                        <option data-tokens="ketchup mustard" value="C"> C </option>
+                                        <option data-tokens="ketchup mustard" value="D"> D </option>
+                                        <option data-tokens="ketchup mustard" value="E"> E </option>
                                     </select>
                                 </div>
+
+                                @if ($errors->has('status'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('status') }}</strong>
+                                </span>
+                                @endif
                             </div>
-                            <div class="form-group">
-                                 <label for="email" class="col-md-4 control-label">Turno </label>
+
+                           <div class="form-group {{ $errors->has('turno') ? ' has-error' : '' }}">
+                                <label for="turno" class="col-md-4 control-label" >Turno:</label>
+                                <div class="col-md-6"> 
+                                    <select class="form-control" data-live-search="true" id="turno" name="turno">
+                                        <option data-tokens="ketchup mustard" value="">SELECIONE...</option>
+                                        <option data-tokens="ketchup mustard" value="M"> MANHÃ </option>
+                                        <option data-tokens="ketchup mustard" value="T"> TARDE </option>
+                                        <option data-tokens="ketchup mustard" value="N"> NOITE </option>
+                                    </select>
+                                </div>
+
+                                @if ($errors->has('turno'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('turno') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group {{ $errors->has('ano') ? ' has-error' : '' }}">
+                                <label for="ano" class="col-md-4 control-label">Ano: </label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="Turno" required autofocus>
+                                    <input id="ano" type="date" class="form-control" name="ano" value="{{ old('ano') }}">
                                 </div>
+
+                                @if ($errors->has('ano'))
+                                    <span class="help-block">
+                                            <strong>{{ $errors->first('ano') }}</strong>
+                                    </span>
+                                @endif
                             </div>
 
-                            <div class="form-group">
-                                  <label for="email" class="col-md-4 control-label">Ano</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="Turno" required autofocus>
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Cadastrar
-                                    </button>
+                                    <button type="submit" class="btn btn-primary">Cadastrar </button>
+                                    <a class="control-label btn btn-danger" href="{{route('admin')}}">Cancelar</a>
                                 </div>
                             </div>
                         </form>
