@@ -34,7 +34,7 @@
                                 </div>
                             @else
                                 <table class="table table-striped bunitu">
-                                    <form method="GET" action="{{route('turma.show')}}" role="search">
+                                    <form method="GET" action="{{route('disciplina.show')}}" role="search">
                                         <div class="form-group">
                                             <div class="input-group col-md-4">
                                                 <input type="text" class="form-control col-md-5" name="consulta" id="consulta" placeholder="consultar" type="text"/>

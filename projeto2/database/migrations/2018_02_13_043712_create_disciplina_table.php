@@ -17,6 +17,7 @@ class CreateDisciplinaTable extends Migration
             $table->increments('id');
             $table->string('nome',100);
             $table->Integer('ch');
+            $table->string('nivel',1);
             $table->timestamps();
         });
     }
