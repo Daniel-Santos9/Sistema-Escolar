@@ -17,7 +17,7 @@ class UsuarioController extends Controller
 
     public function index()
     {
-        return view('usuario.login');
+        return view('usuario.index');
     }
 
     public function create(){

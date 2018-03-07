@@ -28,7 +28,8 @@ class DisciplinaController extends Controller
 
         $validador = Validator::make($res->all(), [
             'nome' => 'required|string|max:255',
-            'ch' => 'required|int|max:11|',
+            'ch' => 'required|integer|max:255|',
+            'nivel'=> 'required|string|min:1',
         ]);
 
         if($validador->fails())
@@ -40,6 +41,7 @@ class DisciplinaController extends Controller
         {
             $this->disciplina->nome = $res->input('nome');
             $this->disciplina->ch = $res->input('ch');
+            $this->disciplina->nivel = $res->input('nivel');
 
             $user_ins = $this->disciplina->save();
 
@@ -56,8 +58,7 @@ class DisciplinaController extends Controller
 
         $str = $request->get('consulta','');
         if($str){
-
-          $disciplinas = $this->disciplina->where('nome','LIKE','%'.$str.'%')->get();
+            $disciplinas = $this->disciplina->where('nome','LIKE','%'.$str.'%')->get();
         }
         else{
             $disciplinas = $this->disciplina->all();
@@ -65,6 +66,7 @@ class DisciplinaController extends Controller
 
         return view('disciplina.show',compact('disciplinas'));
     }
+
     public function edit ($id){
 
         $disc = $this->disciplina->find($id);
@@ -77,7 +79,8 @@ class DisciplinaController extends Controller
 
             $validador = Validator::make($req->all(), [
          		'nome' => 'required|string|max:255',
-            	'ch' => 'required|int|max:255|',
+            	'ch' => 'required|integer|max:255|',
+                'nivel'=> 'required|string|min:1',
             ]);
 
 
@@ -90,6 +93,7 @@ class DisciplinaController extends Controller
         {
             $disc->nome = $req->input('nome');
             $disc->ch = $req->input('ch');
+            $disc->nivel = $req->input('nivel');
 
             $disc->save();
 
@@ -109,7 +113,5 @@ class DisciplinaController extends Controller
             ->with('delete',true);
 
     }
-
-
 
 }

@@ -37,6 +37,29 @@
                                 @endif
                             </div>
 
+                           <div class="form-group col-md-10 {{ $errors->has('nivel') ? ' has-error' : '' }}">
+                                <label for="nivel" class="control-label" >Nível de Ensino:</label>
+                                <select class="form-control" data-live-search="true" id="nivel" name="nivel">
+                                    @if($disc->nivel='I')
+                                        <option data-tokens="ketchup mustard" value="I">ENSINO FUNDAMENTAL I</option>
+                                    @elseif($turma->turno='II')
+                                        <option data-tokens="ketchup mustard" value="II">ENSINO FUNDAMENTAL II</option>
+                                    @else
+                                        <option data-tokens="ketchup mustard" value="III">AMBOS</option>
+                                    @endif
+                                    <option data-tokens="ketchup mustard" value="">SELECIONE...</option>
+                                    <option data-tokens="ketchup mustard" value="I"> ENSINO FUNDAMENTAL I </option>
+                                    <option data-tokens="ketchup mustard" value="II"> ENSINO FUNDAMENTAL II </option>
+                                    <option data-tokens="ketchup mustard" value="III"> AMBOS </option>
+                                </select>
+
+                                @if ($errors->has('nivel'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('nivel') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+
                             <div class="form-group col-md-10">
                                 {!! csrf_field() !!}
                                 <button type="submit" class="control-label btn btn-primary">Alterar</button>
