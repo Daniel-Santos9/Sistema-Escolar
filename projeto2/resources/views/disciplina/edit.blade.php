@@ -44,9 +44,7 @@
 
                                  <input type="hidden" name="_method" value="put">
                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            </div>
-
-                              
+                            </div>  
                         </form>
                     </div>
                 </div>

@@ -62,7 +62,6 @@
                                         </tr>
                                     </thead>
                                     @foreach($disciplinas as $disc)
-
                                         <tr >
                                             <td class="text-center">{{$disc->nome}}</td>
                                             <td class="text-center">{{$disc->ch}}</td>
