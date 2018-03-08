@@ -22,10 +22,10 @@
 </head>
 
 <body>
-<div class="container-fluid well-lg">
+<div class="container">
     @if (Route::has('login'))
-        <header class="row container-fluid">
-            <nav class="navbar navbar-inversed nav-justified well-sm ">
+        <header class="row container">
+            <nav class="navbar navbar-default nav-justified well-sm default ">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         @if(Auth::check())
@@ -84,7 +84,7 @@
         @yield('conteudo')
     </div>
 
-    <footer class="container-fluid welld">
+    <footer class="container welld navbar navbar-default" style="color:#000;">
         <div class="container">
             <div class="row col-md-5 pull-left"> &reg; copyright E.E.I.F Amiguinhos da Infância 2016-{{date('Y')}}. </div>
         </div>
