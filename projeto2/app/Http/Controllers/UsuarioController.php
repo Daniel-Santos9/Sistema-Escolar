@@ -41,7 +41,7 @@ class UsuarioController extends Controller
         {
             $this->user->name = $res->input('name');
             $this->user->email = $res->input('email');
-            $this->user->password = bcrypt($res->input['password']);
+            $this->user->password = bcrypt($res->input('password'));
 
             $user_ins = $this->user->save();
 
@@ -69,12 +69,54 @@ class UsuarioController extends Controller
 
         $usuario = $this->user->find($id);
 
-            $validador = Validator::make($req->all(), [
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:160|unique:users',
-                'password' => 'string|min:6|confirmed',
-            ]);
+        if($req->input('password')==''){
 
+            if($usuario->email==$req->input('email'))
+            {
+                $validador = Validator::make($req->all(), [
+                    'name' => 'required|string|max:255'
+                ]);
+
+                $usuario->name = $req->input('name');
+            }
+            else
+            {
+
+                $validador = Validator::make($req->all(), [
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|string|email|max:160|unique:users',
+                ]);
+
+                $usuario->name = $req->input('name');
+                $usuario->email = $req->input('email');
+
+            }
+        }
+        else
+        {
+            if($usuario->email==$req->input('email'))
+            {
+                $validador = Validator::make($req->all(), [
+                    'name' => 'required|string|max:255',
+                    'password' => 'string|min:6|confirmed',
+                ]);
+
+                $usuario->name = $req->input('name');
+                $usuario->password = bcrypt($req->input('password'));
+            }
+            else
+            {
+                $validador = Validator::make($req->all(), [
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|string|email|max:160|unique:users',
+                    'password' => 'string|min:6|confirmed',
+                ]);
+
+                $usuario->name = $req->input('name');
+                $usuario->password = bcrypt($req->input('password'));
+                $usuario->email = $req->input('email');
+            }
+        }
 
         if($validador->fails())
         {
@@ -83,10 +125,6 @@ class UsuarioController extends Controller
                 ->withInput();
         }else
         {
-            $usuario->name = $req->input('name');
-            $usuario->email = $req->input('email');
-            $usuario->password = bcrypt($req->input('password'));
-
             $usuario->save();
 
             return redirect()->route('usuario.show')
