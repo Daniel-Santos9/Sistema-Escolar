@@ -6,19 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> @yield('titulo') </title>
 
-    <link rel="stylesheet" type="text/css" href="{{asset('css/home.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('css/home2.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}"/>
+    <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/home.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.modif.css')}}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <![endif]-->
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-notify.min.js') }}"></script>
+
+    <script>
+
+        $(document).ready(function() {
+
+            $('#nis').mask('999.99999.99-9');
+            $('#rg').mask('9999999999-9');
+            $('#numero').mask('99999');
+            $('#cep').mask('99999-999');
+            $('#ano').mask('9999');
+            $('#ch').mask('999');
+            $('#nascimento').mask('99/99/9999');
+            $('.nota').mask('99,99');
+        });
+    </script>
+    
 </head>
 
 <body>
@@ -45,6 +57,8 @@
                                 <li><a href={{route('usuario.create')}}>Usuário</a></li>
                                 <li><a href={{route('turma.create')}}>Turma</a></li>
                                 <li><a href={{route('disciplina.create')}}>Disciplina</a></li>
+                                <li><a href={{route('aluno.create')}}>Aluno</a></li>
+                                <li><a href={{route('nota.create')}}>Nota</a></li>
                             </ul>
                         </li>
                         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Controle <span class="caret"></span></a>
@@ -52,6 +66,8 @@
                                 <li><a href={{route('usuario.show')}}>Usuário</a></li>
                                 <li><a href={{route('turma.show')}}>Turma</a></li>
                                 <li><a href={{route('disciplina.show')}}>Disciplina</a></li>
+                                <li><a href={{route('aluno.show')}}>Aluno</a></li>
+                                <li><a href="#">Nota</a></li>
                             </ul>
                         </li>
 
@@ -90,8 +106,7 @@
         </div>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </div>
 </body>
 </html>

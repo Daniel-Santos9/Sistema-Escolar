@@ -12,7 +12,19 @@ class Disciplina extends Model
         'nome', 'ch'
     ];
 
+ 	protected $guarded = [
+ 		'id'
+ 	];
+
     public function turmas(){
-        return $this->belongsToMany(Turma::class,'rdt');
+        return $this->belongsToMany(Turma::class)->withTimestamps();
     }
+
+ 	public function faltas(){
+ 		return $this->hasMany(Falta::class);
+ 	}
+
+ 	public function notas(){
+ 		return $this->hasMany(Nota::class);
+ 	}
 }

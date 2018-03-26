@@ -6,27 +6,17 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateDisciplinaTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('disciplina', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('nome',100);
             $table->Integer('ch');
-            $table->string('nivel',3);
+            $table->enum('nivel', ['I', 'II','III']);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('disciplina');

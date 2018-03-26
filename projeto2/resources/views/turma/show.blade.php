@@ -57,6 +57,7 @@
                                         </div>
                                         <tr >
                                             <th class="text-center">Série</th>
+                                            <th class="text-center">Turno</th>
                                             <th class="text-center">Ano</th>
                                             <th class="text-center">Ação</th>
                                         </tr>
@@ -64,8 +65,17 @@
                                     @foreach($turmas as $turma)
 
                                         <tr >
-                                            <td class="text-center">{{$turma->serie}}</td>
-                                            <td class="text-center">{{date_format(new DateTime($turma->ano), "d/m/Y")}}</td>
+                                            <td class="text-center">{{$turma->serie}}° ANO - {{$turma->status}}</td>
+                                            <td class="text-center">
+                                                @if($turma->turno == "M")
+                                                    MANHÃ
+                                                @elseif($turma->turno == "T")
+                                                    TARDE
+                                                @else
+                                                    NOITE
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{$turma->ano}}</td>
                                             <td class="text-center">
                                                 <a class='btn btn-info btn-xs' href="{{route('turma.edit', $turma->id) }}">
                                                     <span class="glyphicon glyphicon-edit"></span> Editar

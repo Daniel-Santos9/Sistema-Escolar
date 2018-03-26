@@ -6,28 +6,19 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTurmaTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('turma', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('serie',100);
-            $table->string('turno',1);
-            $table->date('ano',100);
+            $table->bigIncrements('id');
+            $table->integer('serie'); // trocar por integer e concertar a view
+            $table->enum('turno', ['M', 'T']);
+            $table->year('ano');
             $table->string('status',1);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('turma');

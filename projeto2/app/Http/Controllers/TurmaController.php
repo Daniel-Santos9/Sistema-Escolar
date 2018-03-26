@@ -27,10 +27,10 @@ class TurmaController extends Controller
     public function store(Request $res){
 
         $validador = Validator::make($res->all(), [
-            'serie' => 'required|string|min:10',
-            'status' => 'required|string|min:1',
-            'turno' => 'required|string|min:1',
-            'ano'=> 'required|date',
+            'serie'     => 'required|integer|min:1',
+            'status'    => 'required|string|min:1',
+            'turno'     => 'required|string|min:1',
+            'ano'       => 'required|date_format:Y',
         ]);
 
         if($validador->fails())
@@ -40,15 +40,15 @@ class TurmaController extends Controller
                 ->withInput();
         }else
         {
-            $dataUSA = date_format(new DateTime($res->input('ano')), "Y-m-d");
-            $this->turma->serie = $res->input('serie');
-            $this->turma->turno = $res->input('turno');
+            $this->turma->serie  = $res->input('serie');
+            $this->turma->turno  = $res->input('turno');
             $this->turma->status = $res->input('status');
-            $this->turma->ano = $dataUSA;
+            $this->turma->ano    = $res->input('ano');
 
-            $turma_ins = $this->turma->save();
+            $inserido = $this->turma->save();
+            $associa = $this->associaDisciplina($this->turma);
 
-            if($turma_ins)
+            if($inserido && $associa)
             {
                 return redirect()->route('turma.show')
                     ->withInput()
@@ -78,44 +78,90 @@ class TurmaController extends Controller
     public function update(Request $res, $id){
 
         $turma = $this->turma->find($id);
+        $desassocia = $this->desassociaDisciplina($turma);
 
         $validador = Validator::make($res->all(), [
-            'serie' => 'required|string|min:10',
-            'status' => 'required|string|min:1',
-            'turno' => 'required|string|min:1',
-            'ano'=> 'required|date',
+            'serie'     => 'required|integer|min:1',
+            'status'    => 'required|string|min:1',
+            'turno'     => 'required|string|min:1',
+            'ano'       => 'required|date_format:Y',
         ]);
 
 
-        if($validador->fails())
-        {
+        if($validador->fails()){
+
             return redirect()->route('turma.edit', $id)
                 ->withErrors($validador)
                 ->withInput();
-        }else
-        {
-            $dataUSA = new DateTime($res->input('ano'));
+        }
+        else{
+
             $turma->serie = $res->input('serie');
             $turma->turno = $res->input('turno');
             $turma->status = $res->input('status');
-            $turma->ano = $dataUSA->format("Y-m-d");
+            $turma->ano    = $res->input('ano');
 
-            $turma->save();
+            $inserido = $turma->save();
 
-            return redirect()->route('turma.show')
-                ->withInput()
-                ->with('update',true);
+            $associa = $this->associaDisciplina($turma);
+
+            if($desassocia && $inserido && $associa){
+                return redirect()->route('turma.show')
+                    ->withInput()
+                    ->with('update',true);
+            }
+
         }
     }
 
     public function delete($id){
 
         $turma = $this->turma->find($id);
-        $turma->delete();
+        $disciplinas = $turma->disciplinas;
 
-        return redirect()->route('turma.show')
-            ->withInput()
-            ->with('delete',true);
+        if($disciplinas){
+            $desassocia = $this->desassociaDisciplina($turma);
+        }
+
+        if($turma->delete() && $desassocia){
+            return redirect()->route('turma.show')
+                ->withInput()
+                ->with('delete',true);
+        }
 
     }
+
+    public function associaDisciplina(Turma $turma){
+
+        if($turma->serie >= 6){
+            $disciplinas = $this->disciplina->where('nivel','=','II')->orWhere('nivel','=','III')->get();
+        }
+        else{
+            $disciplinas = $this->disciplina->where('nivel','=','I')->orWhere('nivel','=','III')->get();
+        }
+
+        if($disciplinas){
+            foreach ($disciplinas as $disciplina) {
+                $turma->disciplinas()->attach($disciplina);
+            }
+            return true;  
+        }
+        
+        return false;  
+    }
+
+    public function desassociaDisciplina(Turma $turma){
+
+        $disciplinas = $turma->disciplinas;
+
+        if($disciplinas){
+            foreach ($disciplinas as $disciplina) {
+                $turma->disciplinas()->detach($disciplina);
+            }
+            return true;  
+        }
+        
+        return false;  
+    }
+
 }

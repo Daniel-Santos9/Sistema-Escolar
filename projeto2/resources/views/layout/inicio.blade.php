@@ -15,10 +15,7 @@
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!--webfont-->
     <link href='http://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
-    <!----font-Awesome----->
-    <link rel="stylesheet" href="{{asset('assets/fonts/css/font-awesome.min.css')}}">
-    <!----font-Awesome----->
-    <!--Animation-->
+
     <script src="{{asset('assets/js/wow.min.js')}}"></script>
     <link href="{{asset('assets/css/animate.css')}}" rel='stylesheet' type='text/css' />
     <script>
